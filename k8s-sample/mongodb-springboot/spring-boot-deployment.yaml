@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: spring-boot-deployment
+  labels:
+    app: spring-boot-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: spring-boot-app
+  template:
+    metadata:
+      labels:
+        app: spring-boot-app
+    spec:
+      containers:
+      - name: spring-boot-app
+        image: json-schema-validator:0.0.1-SNAPSHOT
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 8080
+        env:
+        - name: USERNAME
+          valueFrom:
+            secretKeyRef:
+              name: mongo-secret
+              key: mongo-user
+        - name: PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: mongo-secret
+              key: mongo-password
+        - name: DB_URL
+          valueFrom:
+            configMapKeyRef:
+              name: mongo-config
+              key: mongo-url
+        - name: ENV
+          valueFrom:
+            configMapKeyRef:
+              name: spring-boot-config
+              key: env
