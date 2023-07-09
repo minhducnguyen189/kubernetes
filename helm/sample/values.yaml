@@ -1,0 +1,30 @@
+mongo:
+  app:
+    name: mongo-app
+  containers:
+    name: mongo
+    image: mongo
+    port: 27017
+  pvc:
+    name: mongo-pvc
+    storage: 512Mi
+  config:
+    name: mongo-config
+  secret:
+    name: mongo-secret
+    data:
+      mongoUser: cm9vdA==
+      mongoPassword: ZXhhbXBsZQ==
+
+springboot:
+  app:
+    name: spring-boot-app
+    nodePort: 31000
+  containers:
+    name: spring-boot-app
+    image: json-schema-validator:0.0.1-SNAPSHOT
+    port: 8080
+  config:
+    name: spring-boot-config
+    data:
+      env: dev
