@@ -1,0 +1,30 @@
+mongo:
+  app:
+    name: mongo-app-test
+  containers:
+    name: mongo-test
+    image: mongo
+    port: 27017
+  pvc:
+    name: mongo-pvc-test
+    storage: 512Mi
+  config:
+    name: mongo-config-test
+  secret:
+    name: mongo-secret-test
+    data:
+      mongoUser: dGVzdAo=
+      mongoPassword: dGVzdHBhc3N3b3JkCg==
+
+springboot:
+  app:
+    name: spring-boot-app-test
+    nodePort: 32000
+  containers:
+    name: spring-boot-app-test
+    image: json-schema-validator:0.0.1-SNAPSHOT
+    port: 8080
+  config:
+    name: spring-boot-config-test
+    data:
+      env: test
