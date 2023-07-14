@@ -29,7 +29,7 @@ spec:
           valueFrom:
             secretKeyRef:
               name: {{ .Values.mongo.secret.name }}
-              key: mongo-password      
+              key: mongo-password
         volumeMounts:
         - name: mongo-storage
           mountPath: /data/db

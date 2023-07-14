@@ -4,3 +4,4 @@ metadata:
   name: {{ .Values.mongo.config.name }}
 data:
   mongo-url: {{ .Values.mongo.app.name }}
+  mongo-port: "{{ .Values.mongo.containers.port }}"
