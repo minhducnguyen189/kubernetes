@@ -36,6 +36,11 @@ spec:
             configMapKeyRef:
               name: mongo-config
               key: mongo-url
+        - name: PORT
+          valueFrom:
+            configMapKeyRef:
+              name: mongo-config
+              key: mongo-port      
         - name: ENV
           valueFrom:
             configMapKeyRef:
