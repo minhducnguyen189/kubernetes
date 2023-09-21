@@ -1,0 +1,64 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.springboot.app.name }}
+  labels:
+    app: {{ .Values.springboot.app.name }}
+spec:
+  replicas: 1
+  strategy:
+   rollingUpdate:
+     maxSurge: 0
+     maxUnavailable: 1
+   type: RollingUpdate
+  selector:
+    matchLabels:
+      app: {{ .Values.springboot.app.name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.springboot.app.name }}
+    spec:
+      containers:
+      - name: {{ .Values.springboot.containers.name }}
+        image: {{ .Values.springboot.containers.image }}
+        imagePullPolicy: Never
+        readinessProbe:
+          httpGet:
+            path: /actuator/health/readiness
+            port: {{ .Values.springboot.containers.port }}
+          initialDelaySeconds: 5
+          periodSeconds: 5
+          successThreshold: 1
+        lifecycle:
+          preStop:
+            exec:
+              command: ["/bin/bash", "-c", "sleep 15"]
+        ports:
+        - containerPort: {{ .Values.springboot.containers.port }}
+        env:
+        - name: USERNAME
+          valueFrom:
+            secretKeyRef:
+              name: {{ .Values.mongo.secret.name }}
+              key: mongo-user
+        - name: PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: {{ .Values.mongo.secret.name }}
+              key: mongo-password
+        - name: DB_URL
+          valueFrom:
+            configMapKeyRef:
+              name: {{ .Values.mongo.config.name }}
+              key: mongo-url
+        - name: PORT
+          valueFrom:
+            configMapKeyRef:
+              name: {{ .Values.mongo.config.name }}
+              key: mongo-port
+        - name: ENV
+          valueFrom:
+            configMapKeyRef:
+              name: {{ .Values.springboot.config.name }}
+              key: env
