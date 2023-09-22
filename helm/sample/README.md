@@ -31,3 +31,11 @@ helm install -f helm/sample/values-test.yaml my-sample-test helm/sample/
 helm uninstall my-sample-test
 
 ```
+
+- helm upgrade
+
+```sh
+
+helm upgrade -f helm/sample/values-test.yaml my-sample-test helm/sample/
+
+```

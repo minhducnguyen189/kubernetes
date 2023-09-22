@@ -30,6 +30,13 @@ spec:
           initialDelaySeconds: 5
           periodSeconds: 5
           successThreshold: 1
+        livenessProbe:
+          httpGet:
+            path: /actuator/health/liveness
+            port: {{ .Values.springboot.containers.port }}
+          initialDelaySeconds: 5
+          periodSeconds: 5
+          successThreshold: 1
         lifecycle:
           preStop:
             exec:

@@ -20,7 +20,7 @@ helm list
 
 ```sh
 
-helm install -f helm/sample/values-test.yaml my-sample-test helm/sample/
+helm install -f helm/zero-downtime/values.yaml sample-dev helm/zero-downtime/
 
 ```
 
@@ -28,6 +28,14 @@ helm install -f helm/sample/values-test.yaml my-sample-test helm/sample/
 
 ```sh
 
-helm uninstall my-sample-test
+helm uninstall sample-dev
+
+```
+
+- helm upgrade
+
+```sh
+
+helm upgrade -f helm/zero-downtime/values.yaml sample-dev helm/zero-downtime/
 
 ```
