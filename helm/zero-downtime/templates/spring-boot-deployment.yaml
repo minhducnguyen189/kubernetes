@@ -17,7 +17,10 @@ spec:
   template:
     metadata:
       labels:
-        app: {{ .Values.springboot.app.name }}
+        app: {{ .Values.springboot.app.name }}  
+      annotations:  
+        # each invocation of the template function randAlphaNum will generate a unique random string. Thus random string always changes and causes the deployment to roll.
+        rollme: {{ randAlphaNum 5 | quote }}
     spec:
       containers:
       - name: {{ .Values.springboot.containers.name }}
