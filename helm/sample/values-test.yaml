@@ -14,7 +14,7 @@ mongo:
     name: mongo-secret-test
     data:
       mongoUser: cm9vdA==
-      mongoPassword: dGVzdHBhc3N3b3JkCg==
+      mongoPassword: cGFzc3dvcmQ=
 
 springboot:
   app:
