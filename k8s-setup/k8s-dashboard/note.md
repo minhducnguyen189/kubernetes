@@ -54,7 +54,7 @@ eyJhbGciOiJSUzI1NiIsImtpZCI6IiJ9.eyJpc3MiOiJrdWJlcm5ldGVzL3NlcnZpY2VhY2NvdW50Iiw
 
 - [More information](https://github.com/kubernetes/dashboard/blob/master/docs/user/access-control/creating-sample-user.md)
 
-## Access Kubernetes Dashboard
+## Access Kubernetes Dashboard By Kubectl Proxy
 - Run the command below.
 
 ```sh linenums="1"
@@ -71,5 +71,20 @@ http://localhost:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kube
 
 ```
 
+## Access Kubernetes Dashboard By Port Forwading
+- Run the command below.
 
+```sh linenums="1"
+
+kubectl -n kubernetes-dashboard port-forward svc/kubernetes-dashboard-kong-proxy --address 0.0.0.0 8443:443
+
+```
+
+- Then access the Dashboard UI at url:
+
+```sh linenums="1"
+
+https://{your-host-address}:8443/#/login
+
+```
 
